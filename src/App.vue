@@ -1,12 +1,34 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="container">
+      <Pagination :page.sync="text">
+        <template>
+          <ul class="items">
+            <li v-for="item in list" :key="item">{{ item }}</li>
+          </ul>
+        </template>
+        <!--      <template #paginator="{ page, setPage, total, perPage }"></template>-->
+
+      </Pagination>
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+  import Pagination from "@/components/Pagination"
+
+  export default {
+    name: 'App',
+    components: { Pagination },
+
+    data() {
+      return {
+        list: ['cat', 'dog', 'fox', 'bear', 'tuna', 'beaver'],
+        text: 5,
+      }
+    }
+  }
+</script>
 
 <style lang="scss">
 #app {
@@ -15,6 +37,11 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  .items {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 #nav {
