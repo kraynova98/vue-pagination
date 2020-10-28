@@ -1,5 +1,6 @@
 <template>
   <section>
+    <div class="inputs"></div>
     <b-field grouped group-multiline>
       <b-field label="Total">
         <b-input type="number" v-model="total"></b-input>
@@ -8,7 +9,12 @@
         <b-input type="number" v-model="perPage"></b-input>
       </b-field>
     </b-field>
-    <slot></slot>
+    <p>
+      <slot v-bind="list"></slot>
+    </p>
+    <p>
+      {{ list }}
+    </p>
     <hr>
     <b-pagination
         :total="total"
@@ -26,24 +32,22 @@
 export default {
   name: 'Pagination',
   props: {
-    page: {
-      type: Number
+    items: {
+      type: Array
     }
   },
 
   computed: {
-    numberOfPage: {
-      get() {
-        return this.page;
-      }
+    list: function() {
+      return this.items.slice(0, this.perPage);
     }
   },
 
   data() {
     return {
       total: 200,
-      current: 10,
-      perPage: 10,
+      current: 2,
+      perPage: 5,
     }
   }
 }
@@ -55,7 +59,8 @@ h3 {
   margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
+  display: flex;
+  flex-direction: column;
   padding: 0;
 }
 li {

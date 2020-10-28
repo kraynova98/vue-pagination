@@ -1,15 +1,12 @@
 <template>
   <div id="app">
     <div class="container">
-      <Pagination :page.sync="text">
-        <template>
-          <ul class="items">
-            <li v-for="item in list" :key="item">{{ item }}</li>
-          </ul>
-        </template>
+        <Pagination :items="items" :perPage="10" page.sync="current">
+          <template #default="list">
+            {{ list }}
+          </template>
+        </Pagination>
         <!--      <template #paginator="{ page, setPage, total, perPage }"></template>-->
-
-      </Pagination>
     </div>
   </div>
 </template>
@@ -23,8 +20,9 @@
 
     data() {
       return {
-        list: ['cat', 'dog', 'fox', 'bear', 'tuna', 'beaver'],
-        text: 5,
+        users: ['Tom', 'Ben', 'Alex'],
+        items: ['cat', 'dog', 'fox', 'bear', 'tuna', 'beaver'],
+        current: ''
       }
     }
   }
