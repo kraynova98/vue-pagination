@@ -3,21 +3,17 @@
     <div class="inputs"></div>
     <b-field grouped group-multiline>
       <b-field label="Total">
-        <b-input type="number" v-model="total"></b-input>
+        <b-input type="number" v-model="itemsTotal"></b-input>
       </b-field>
       <b-field label="Items per page">
         <b-input type="number" v-model="perPage"></b-input>
       </b-field>
     </b-field>
-    <p>
-      <slot v-bind="list"></slot>
-    </p>
-    <p>
-      {{ list }}
-    </p>
+      <slot name="list" :list="list"></slot>
+<!--      <slot name="paginator" :current="current" :per-page="perPage"></slot>-->
     <hr>
     <b-pagination
-        :total="total"
+        :total="itemsTotal"
         v-model="current"
         :per-page="perPage"
         aria-next-label="Next page"
@@ -39,15 +35,18 @@ export default {
 
   computed: {
     list: function() {
-      return this.items.slice(0, this.perPage);
+      return this.items.slice((this.current - 1) * this.perPage, this.perPage * this.current);
+    },
+
+    itemsTotal: function() {
+      return this.items.length;
     }
   },
 
   data() {
     return {
-      total: 200,
-      current: 2,
-      perPage: 5,
+      current: 1,
+      perPage:5
     }
   }
 }
