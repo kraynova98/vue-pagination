@@ -10,7 +10,6 @@
       </b-field>
     </b-field>
       <slot name="list" :list="list"></slot>
-<!--      <slot name="paginator" :current="current" :per-page="perPage"></slot>-->
     <hr>
     <b-pagination
         :total="itemsTotal"
